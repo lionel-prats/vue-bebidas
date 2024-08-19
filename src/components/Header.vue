@@ -4,9 +4,14 @@
     import {useBebidasStore} from "../stores/bebidas" // importamos el Store de Pinia (v230)
     
     const route = useRoute()
-    const storePiniaBebidas = useBebidasStore()
+    const storePiniaBebidas = useBebidasStore() // accedemos al Store de Pinia (v230)
 
     const paginaInicio = computed(() => route.name === "inicio")
+
+    const handleSubmit = () => {
+        // TODO: Validar
+        storePiniaBebidas.obtenerRecetas()
+    }
 
 </script>
 
@@ -36,8 +41,9 @@
                 </nav>
             </div>
             <form 
-                class="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6"
                 v-if="paginaInicio"
+                class="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6"
+                @submit.prevent="handleSubmit" 
             >
                 <div class="space-y-4">
                     <label
@@ -49,6 +55,7 @@
                         id="ingrediente"
                         class="p-3 w-full rounded-lg focus:outline-none"    
                         placeholder="Nombre o Ingrediente: Vodka, Tequila, etc."
+                        v-model="storePiniaBebidas.busqueda.nombre"
                     >
                 </div>
                 <div class="space-y-4">
@@ -58,7 +65,8 @@
                     >Categoría</label>
                     <select 
                         id="categoria"
-                        class="p-3 w-full rounded-lg focus:outline-none"    
+                        class="p-3 w-full rounded-lg focus:outline-none"  
+                        v-model="storePiniaBebidas.busqueda.categoria"  
                     >
                         <option value="">-- Seleccione --</option>
                         <option 
