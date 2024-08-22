@@ -1,3 +1,5 @@
+// https://www.thecocktaildb.com/api.php
+
 import api from "../lib/axios"
 
 export default {
